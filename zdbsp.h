@@ -47,6 +47,7 @@ extern bool				 ShowMap;
 extern bool				 CompressNodes, CompressGLNodes, ForceCompression, V5GLNodes;
 extern bool				 HaveSSE1, HaveSSE2;
 extern int				 SSELevel;
+extern int				 Tolerance;
 
 
 #define FIXED_MAX		INT_MAX

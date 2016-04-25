@@ -279,6 +279,20 @@ void FProcessor::ParseSector(IntSector *sec)
 //
 //===========================================================================
 
+static void AdjustValue(fixed_t& intvalue, const char*& strvalue)
+{
+	const fixed_t newvalue = intvalue & (0xFFFFFFFF << Tolerance);
+
+	if (newvalue != intvalue)
+	{
+		char buffer[64];
+		sprintf(buffer, "%.03f", newvalue / 65536.0);
+
+		strvalue = stbuf.Copy(buffer);
+		intvalue = newvalue;
+	}
+}
+
 void FProcessor::ParseVertex(WideVertex *vt, IntVertex *vtp)
 {
 	vt->x = vt->y = 0;
@@ -291,10 +305,12 @@ void FProcessor::ParseVertex(WideVertex *vt, IntVertex *vtp)
 		if (!stricmp(key, "x"))
 		{
 			vt->x = CheckFixed(key);
+			AdjustValue(vt->x, value);
 		}
 		else if (!stricmp(key, "y"))
 		{
 			vt->y = CheckFixed(key);
+			AdjustValue(vt->y, value);
 		}
 
 		// now store the key in its unprocessed form

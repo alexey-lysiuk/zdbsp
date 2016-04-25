@@ -58,6 +58,7 @@
 #include "wad.h"
 #include "processor.h"
 #include "getopt.h"
+#include "templates.h"
 
 // MACROS ------------------------------------------------------------------
 
@@ -113,6 +114,7 @@ bool			 GLOnly = false;
 bool			 V5GLNodes = false;
 bool			 HaveSSE1, HaveSSE2;
 int				 SSELevel;
+int				 Tolerance;
 
 // PRIVATE DATA DEFINITIONS ------------------------------------------------
 
@@ -148,10 +150,11 @@ static option long_opts[] =
 	{"no-sse",			no_argument,		0,  1002},
 	{"no-sse2",			no_argument,		0,  1003},
 	{"comments",		no_argument,		0,	'c'},
+	{"tolerance",		required_argument,	0,	'y'},
 	{0,0,0,0}
 };
 
-static const char short_opts[] = "wVgGvbNrReEm:o:f:p:s:d:PqtzZXx5c";
+static const char short_opts[] = "wVgGvbNrReEm:o:f:p:s:d:PqtzZXx5cy:";
 
 // CODE --------------------------------------------------------------------
 
@@ -413,6 +416,9 @@ static void ParseArgs (int argc, char **argv)
 			break;
 		case 'c':
 			WriteComments = true;
+			break;
+		case 'y':
+			Tolerance = clamp(0, atoi(optarg), FRACBITS);
 			break;
 		case 'V':
 			ShowVersion ();
