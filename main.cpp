@@ -471,6 +471,8 @@ static void ShowUsage ()
 "  -s, --split-cost=NNN     Cost for splitting segs (default %d)\n"
 "  -d, --diagonal-cost=NNN  Cost for avoiding diagonal splitters (default %d)\n"
 "  -P, --no-polyobjs        Do not check for polyobject subsector splits\n"
+"  -y, --tolerance=NN       Round vertex coordinates (0..16, default 0)\n"
+"                           0 - none, 16 - drop whole fractional part\n"
 #ifdef _WIN32
 "  -v, --view               View the nodes\n"
 #endif
